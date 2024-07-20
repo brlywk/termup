@@ -1,20 +1,15 @@
 package program
 
-import (
-	"github.com/brlywk/termup/cmd/styles"
-	"github.com/brlywk/termup/cmd/text"
-)
-
 type Homebrew struct {
-	command       string
-	installScript string
+	defaultProgram
 }
 
 func (h *Homebrew) available() bool {
-	return commandAvailable(h.command)
+	return h.defaultProgram.available()
 }
 
 func (h *Homebrew) init() {
+	h.name = "homebrew"
 	h.command = "brew"
 	h.installScript = `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 }
@@ -22,10 +17,5 @@ func (h *Homebrew) init() {
 func (h *Homebrew) Install() error {
 	h.init()
 
-	if h.available() {
-		text.ColorLn(styles.BrightBlack, "Homebrew already installed.")
-		return nil
-	}
-
-	return runCmd(h.installScript)
+	return h.defaultProgram.Install()
 }

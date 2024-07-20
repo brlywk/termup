@@ -50,8 +50,8 @@ Temporary Items
 .apdisk
 
 # IDE
-.idea/
-.vscode/
+.idea
+.vscode
 
 # TOML files
 .toml
